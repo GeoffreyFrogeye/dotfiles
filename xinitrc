@@ -1,4 +1,3 @@
-
 #!/bin/sh
 
 #
@@ -15,3 +14,4 @@ case $1 in
   i3) exec dbus-launch i3 ;;
   *) exec dbus-launch  $DEFAULT_SESSION ;;
 esac
+
