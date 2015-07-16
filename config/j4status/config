@@ -1,0 +1,26 @@
+[Plugins]
+Output=i3bar
+Input=nm;pulseaudio;upower;time
+Order=nm;pulseaudio;upower;time
+
+[Time]
+Zones=Europe/Paris;
+
+[PulseAudio]
+#Actions=raise
+
+[NetworkManager]
+Interfaces=enp3s0;wlp2s0
+HideUnavailable=true
+
+[Override pulseaudio:auto_null]
+Label=🔊
+
+[Override nm-wifi:wlp2s0]
+Label=📶
+
+[Override time:Europe/Paris]
+Label=🕗
+
+[Override upower-battery:BAT0]
+Label=🔋
