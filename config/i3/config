@@ -30,10 +30,9 @@ font pango:Sans 8
 floating_modifier $mod
 
 # start a terminal
-set $TERMINAL uxterm
 # set TERMINAL=i3-sensible-terminal
-bindsym $mod+Return exec $TERMINAL
-bindsym $mod+p exec nemo --no-desktop ~
+bindsym $mod+Return exec exo-open --launch TerminalEmulator
+bindsym $mod+p exec exo-open --launch FileManager
 bindsym $mod+m exec exo-open --launch WebBrowser
 
 # kill focused window
@@ -234,7 +233,7 @@ mode "$mode_screen_select" {
 }
 bindsym $mod+t mode "$mode_screen_select"
 
-set $mode_screen_VGA1 [R] Right [L] Left [U] Up [D] Down [C] Copy [O] Off 
+set $mode_screen_VGA1 VGA [R] Right [L] Left [U] Up [D] Down [C] Copy [O] Off 
 mode "$mode_screen_VGA1" {
     bindsym r exec xrandr --output VGA1 --auto --right-of LVDS1
     bindsym l exec xrandr --output VGA1 --auto --left-of LVDS1
@@ -254,7 +253,7 @@ bindsym $mod+Ctrl+Shift+l move workspace to output left
 bindsym $mod+Ctrl+Shift+u move workspace to output above
 bindsym $mod+Ctrl+Shift+d move workspace to output below
 
-set $mode_screen_HDMI1 [R] Right [L] Left [U] Up [D] Down [C] Copy [O] Off 
+set $mode_screen_HDMI1 HDMI [R] Right [L] Left [U] Up [D] Down [C] Copy [O] Off 
 mode "$mode_screen_HDMI1" {
     bindsym r exec xrandr --output HDMI1 --auto --right-of LVDS1
     bindsym l exec xrandr --output HDMI1 --auto --left-of LVDS1
