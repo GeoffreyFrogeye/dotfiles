@@ -1,0 +1,6 @@
+#!/bin/sh
+
+dm-tool lock
+if [ $? -ne 0 ]; then
+	$HOME/.config/i3/blurlock
+fi

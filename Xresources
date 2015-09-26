@@ -1,3 +1,4 @@
+URxvt.font: 9x15
 Xft.dpi: 96
 Xft.antialias: true
 Xft.hinting: true
@@ -5,6 +6,8 @@ Xft.rgba: rgb
 Xft.autohint: false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
+Xcursor.theme: Menda-Cursor
+Xcursor.size:  0
 
 ! Terminal colors
 ! https://raw.githubusercontent.com/solarized/xresources/master/Xresources.dark

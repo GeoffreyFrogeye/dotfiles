@@ -4,51 +4,53 @@ general {
         interval = 5
 }
 
-order += "ipv6"
+order += "disk /home"
 order += "disk /"
-order += "run_watch DHCP"
-order += "run_watch VPNC"
 order += "path_exists VPN"
+order += "ethernet enp0s20u1"
 order += "wireless wlan0"
-order += "ethernet eth0"
+order += "ethernet enp3s0"
+order += "cpu_usage"
 order += "battery 0"
-order += "cpu_usage 0"
-order += "load"
+#order += "load"
+order += "volume master"
 order += "tztime local"
 
 wireless wlan0 {
-        format_up = "W: (%quality at %essid, %bitrate) %ip"
-        format_down = "W: down"
+        format_up = " (%quality at %essid, %bitrate) %ip"
+        format_down = ""
 }
 
-ethernet eth0 {
+ethernet enp3s0 {
         # if you use %speed, i3status requires the cap_net_admin capability
-        format_up = "E: %ip (%speed)"
-        format_down = "E: down"
+        format_up = " %ip"
+        format_down = "" 
+}
+
+ethernet enp0s20u1 {
+        # if you use %speed, i3status requires the cap_net_admin capability
+        format_up = " %ip"
+        format_down = ""
+}
+
+cpu_usage {
+	format = " %usage"
 }
 
 battery 0 {
-        format = "%status %percentage %remaining %emptytime"
-        format_down = "No battery"
-        status_chr = "⚇ CHR"
-        status_bat = "⚡ BAT"
-        status_full = "☻ FULL"
+        format = "%status %percentage"
+        format_down = ""
+        status_chr = ""
+        status_bat = ""
+        status_full = ""
         path = "/sys/class/power_supply/BAT%d/uevent"
         low_threshold = 10
-}
-
-run_watch DHCP {
-        pidfile = "/var/run/dhclient*.pid"
-}
-
-run_watch VPNC {
-        # file containing the PID of a vpnc process
-        pidfile = "/var/run/vpnc/pid"
 }
 
 path_exists VPN {
         # path exists when a VPN tunnel launched by nmcli/nm-applet is active
         path = "/proc/sys/net/ipv4/conf/tun0"
+	format = ""
 }
 
 tztime local {
@@ -61,5 +63,16 @@ load {
 }
 
 disk "/" {
-        format = "%free"
+        format = " %avail / %total"
+}
+
+disk "/home" {
+        format = " %avail / %total"
+}
+volume master {
+        format = " %volume"
+        format_muted = " %volume"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
 }

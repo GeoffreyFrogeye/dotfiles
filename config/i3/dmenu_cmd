@@ -1,0 +1,2 @@
+#!/bin/sh
+dmenu -fn 'DejaVu Sans Mono-8' -nb '#222222' -nf '#888888' -sb '#4E9C00' -sf '#FFFFFF' "$@"
