@@ -1,7 +1,11 @@
 # Custom scripts
 
-source ~/.scripts/proxy.sh
-source ~/.geoffrey.sh
+find -type f ~/.scripts | while read script; do
+	source "$script"
+done
+find -type f ~/.gscripts | while read script; do
+	source "$script"
+done
 
 # Prompt
 if [[ $USER == 'root' ]]; then
