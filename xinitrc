@@ -10,10 +10,48 @@
 
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
-DEFAULT_SESSION=i3
-case $1 in
-  xfce) exec dbus-launch xfce4-session ;;
-  i3) exec dbus-launch i3 ;;
-  *) exec dbus-launch  $DEFAULT_SESSION ;;
-esac
+found=0
+function tryDM {
+	if [ $found -eq 0 ]; then
+		parameters=''
+		case $1 in
+		    awesome           ) executable=awesome;;
+		    bspwm             ) executable=bspwm;;
+		    catwm             ) executable=catwm;;
+		    cinnamon          ) executable=cinnamon-session;;
+		    dwm               ) executable=dwm;;
+		    enlightenment     ) executable=enlightenment_start;;
+		    ede               ) executable=startede;;
+		    fluxbox           ) executable=startfluxbox;;
+		    gnome             ) executable=gnome-session;;
+		    gnome-classic     ) executable=gnome-session; parameters="--session=gnome-classic";;
+		    i3|i3wm           ) executable=i3;;
+		    icewm             ) executable=icewm-session;;
+		    jwm               ) executable=jwm;;
+		    kde               ) executable=startkde;;
+		    mate              ) executable=mate-session;;
+		    monster|monsterwm ) executable=monsterwm;;
+		    notion            ) executable=notion;;
+		    openbox           ) executable=openbox-session;;
+		    unity             ) executable=unity;;
+		    xfce|xfce4        ) executable=startxfce4;;
+		    xmonad            ) executable=xmonad;;
+		    *) executabke=$1;;
+		esac
+		path=$(which $executable 2> /dev/null)
+		if [ $? -eq 0 ]; then
+			found=1
+			exec $path $parameters
+		fi
+	fi
+}
 
+if [ ! -z $1 ]; then
+	tryDM $1
+fi
+tryDM i3
+tryDM xfce4
+tryDM mate
+tryDM gnome-classic
+tryDM gnome
+tryDM kde
