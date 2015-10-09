@@ -16,6 +16,7 @@ export LD_LIBRARY_PATH="$LOCINST_DIR/lib:$LOCINST_DIR/usr/lib:$LD_LIBRARY_PATH"
 # Dir set
 if [ ! -d "$LOCINST_DIR" ]; then
   mkdir -p "$LOCINST_DIR"
+  # TODO Add symbolic links and stuff
 fi
 if [ ! -d "$LOCINST_TMP" ]; then
   mkdir -p "$LOCINST_TMP"
@@ -105,6 +106,22 @@ function locinst_arch {
 	return 0
 }
 
+function locinst_pypi {
+	dest=$1
+	shift
+	tar=$LOCINST_TMP/$1.tar.gz
+	char=`echo $1 | cut -c1-1`
+	wget "https://pypi.python.org/packages/source/$char/$1/$1-$2.tar.gz" -O $tar --no-check-certificate
+	preinst=$LOCINST_TMP/$1-$2/
+	tar xf $tar -C $LOCINST_TMP
+	mkdir -p $dest/lib/python
+	export PYTHONPATH="$dest/lib/python:$PYTHONPATH"
+	(cd $preinst; python3 setup.py install --home=$dest)
+	rm -rf $tar $preinst
+}
+
+	
+
 # Master function
 
 function locinst { # action package [other_info]*
@@ -133,6 +150,10 @@ function locinst { # action package [other_info]*
 			;;
 		"arch")
 			locinst_arch $dest $package $*
+			code=$?
+			;;
+		"pypi")
+			locinst_pypi $dest $package $*
 			code=$?
 			;;
 		*)
