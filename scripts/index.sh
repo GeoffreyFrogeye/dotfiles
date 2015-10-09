@@ -1,2 +1,2 @@
 source ~/.scripts/proxy.sh
-source ~/.script/locinst.sh
+source ~/.scripts/locinst.sh
