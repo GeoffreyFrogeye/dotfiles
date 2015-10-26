@@ -327,11 +327,11 @@ exec --no-startup-id feh --bg-scale $HOME/.config/i3/bg.jpg
 exec --no-startup-id conky -c $HOME/.conky/status
 
 # Autostart programs
-exec --no-startup-id i3-msg 'workspace $WS8; exec firefox --new-window tweetdeck.twitter.com'
-exec --no-startup-id i3-msg 'workspace $WS9; exec firefox --new-window rss.frogeye.fr'
-exec --no-startup-id clementine
-exec --no-startup-id evolution
-exec --no-startup-id pidgin
+#exec --no-startup-id i3-msg 'workspace $WS8; exec firefox --new-window tweetdeck.twitter.com'
+#exec --no-startup-id i3-msg 'workspace $WS9; exec firefox --new-window rss.frogeye.fr'
+#exec --no-startup-id clementine
+#exec --no-startup-id evolution
+#exec --no-startup-id pidgin
 
 # Theme colors
 client.focused #4E9C00 #4E9C00 #FFFFFF #FFFFFF
