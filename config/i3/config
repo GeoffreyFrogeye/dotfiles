@@ -312,7 +312,7 @@ bar {
 }
 
 # Inactivity settings
-exec --no-startup-id xautolock -time 10 -locker 'xset dpms force standby; sleep 60; $locker'
+exec --no-startup-id xautolock -time 10 -locker 'xset dpms force standby' -killtime 1 -killer '$locker'
 bindsym $mod+F4 exec --no-startup-id xautolock -disable
 bindsym $mod+F5 exec --no-startup-id xautolock -enable
 

@@ -55,6 +55,7 @@ shopt -s autocd
 alias ls='ls --group-directories-first --time-style=+"%d/%m/%Y %H:%M" --color=auto -F'
 alias ll='ls -l --group-directories-first --time-style=+"%d/%m/%Y %H:%M" --color=auto -F'
 alias la='ls -la --group-directories-first --time-style=+"%d/%m/%Y %H:%M" --color=auto -F'
+alias al=sl
 alias grep='grep --color=tty -d skip'
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
