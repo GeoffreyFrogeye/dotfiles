@@ -135,6 +135,18 @@ set $WS8 8 Social
 set $WS9 9 Veille
 set $WS10 10 Musique
 
+# Workspace output
+workspace "$WS1" output LVDS1
+workspace "$WS2" output VGA1
+workspace "$WS3" output LVDS1
+workspace "$WS4" output VGA1
+workspace "$WS5" output LVDS1
+workspace "$WS6" output VGA1
+workspace "$WS7" output LVDS1
+workspace "$WS8" output VGA1
+workspace "$WS9" output LVDS1
+workspace "$WS10" output VGA1
+
 # switch to workspace
 bindsym $mod+1 workspace $WS1
 bindsym $mod+2 workspace $WS2
@@ -148,43 +160,51 @@ bindsym $mod+9 workspace $WS9
 bindsym $mod+0 workspace $WS10
 
 #navigate workspaces next / previous
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
+bindsym $mod+Ctrl+Left workspace prev_on_output
+bindsym $mod+Ctrl+Right workspace next_on_output
+bindsym $mod+Ctrl+Down workspace prev
+bindsym $mod+Ctrl+Up workspace next
 
-# Move focused container to workspace
-bindsym $mod+Ctrl+1 move container to workspace $WS1
-bindsym $mod+Ctrl+2 move container to workspace $WS2
-bindsym $mod+Ctrl+3 move container to workspace $WS3
-bindsym $mod+Ctrl+4 move container to workspace $WS4
-bindsym $mod+Ctrl+5 move container to workspace $WS5
-bindsym $mod+Ctrl+6 move container to workspace $WS6
-bindsym $mod+Ctrl+7 move container to workspace $WS7
-bindsym $mod+Ctrl+8 move container to workspace $WS8
-bindsym $mod+Ctrl+9 move container to workspace $WS9
-bindsym $mod+Ctrl+0 move container to workspace $WS10
+# Move to workspace next / previous with focused container
+bindsym $mod+Ctrl+Shift+Left move container to workspace prev_on_output; workspace prev_on_output
+bindsym $mod+Ctrl+Shift+Right move container to workspace next_on_output; workspace next_on_output
+bindsym $mod+Ctrl+Shift+Down move container to workspace prev; workspace prev
+bindsym $mod+Ctrl+Shift+Up move container to workspace next; workspace next
 
-# Move to workspace with focused container
-bindsym $mod+Shift+1 move container to workspace $WS1; workspace $WS1
-bindsym $mod+Shift+2 move container to workspace $WS2; workspace $WS2
-bindsym $mod+Shift+3 move container to workspace $WS3; workspace $WS3
-bindsym $mod+Shift+4 move container to workspace $WS4; workspace $WS4
-bindsym $mod+Shift+5 move container to workspace $WS5; workspace $WS5
-bindsym $mod+Shift+6 move container to workspace $WS6; workspace $WS6
-bindsym $mod+Shift+7 move container to workspace $WS7; workspace $WS7
-bindsym $mod+Shift+8 move container to workspace $WS8; workspace $WS8
-bindsym $mod+Shift+9 move container to workspace $WS9; workspace $WS9
-bindsym $mod+Shift+0 move container to workspace $WS10; workspace $WS10
+# move focused container to workspace
+bindsym $mod+ctrl+1 move container to workspace $ws1
+bindsym $mod+ctrl+2 move container to workspace $ws2
+bindsym $mod+ctrl+3 move container to workspace $ws3
+bindsym $mod+ctrl+4 move container to workspace $ws4
+bindsym $mod+ctrl+5 move container to workspace $ws5
+bindsym $mod+ctrl+6 move container to workspace $ws6
+bindsym $mod+ctrl+7 move container to workspace $ws7
+bindsym $mod+ctrl+8 move container to workspace $ws8
+bindsym $mod+ctrl+9 move container to workspace $ws9
+bindsym $mod+ctrl+0 move container to workspace $ws10
 
-# Move workspaces to screen
-bindsym $mod+Ctrl+Shift+r move workspace to output right
-bindsym $mod+Ctrl+Shift+l move workspace to output left
+# move to workspace with focused container
+bindsym $mod+shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+shift+0 move container to workspace $ws10; workspace $ws10
+
+# move workspaces to screen
+bindsym $mod+ctrl+shift+r move workspace to output right
+bindsym $mod+ctrl+shift+l move workspace to output left
 bindsym $mod+Ctrl+Shift+u move workspace to output above
 bindsym $mod+Ctrl+Shift+d move workspace to output below
 
 # Open applications on specific workspaces
+assign [class="Thunderbird"] $WS7
 assign [class="Skype"] $WS7
 assign [class="Pidgin"] $WS7
-assign [class="Evolution"] $WS7
 assign [class="Clementine"] $WS10
 assign [title="TweetDeck"] $WS8
 

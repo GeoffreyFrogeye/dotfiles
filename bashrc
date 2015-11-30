@@ -111,3 +111,6 @@ function dafont {
 }
 
 alias nw="sudo systemctl restart NetworkManager"
+
+alias ise="screen -d -m /opt/Xilinx/12.4/ISE_DS/ISE/bin/lin64/ise"
+alias nex="djtgcfg -d Nexys2 prog -i 0 -f"
