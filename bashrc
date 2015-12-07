@@ -15,6 +15,8 @@ else
 	col=33;
 fi
 	
+export USER=$(whoami)
+export HOSTNAME=$(cat /etc/hostname)
 PS1="\[\e[0;37m\][\[\e[0;${col}m\]\u\[\e[0;37m\]@\[\e[0;34m\]${HOSTNAME//geoffrey-/} \[\e[0;36m\]\W\[\e[0;37m\]]\$\[\e[1;97m\] "
 trap 'echo -ne "\e[0m"' DEBUG
 
@@ -111,6 +113,3 @@ function dafont {
 }
 
 alias nw="sudo systemctl restart NetworkManager"
-
-alias ise="screen -d -m /opt/Xilinx/12.4/ISE_DS/ISE/bin/lin64/ise"
-alias nex="djtgcfg -d Nexys2 prog -i 0 -f"
