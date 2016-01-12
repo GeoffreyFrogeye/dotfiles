@@ -69,6 +69,7 @@ bindsym Print exec scrot -ue 'mv $f ~/.screenshots/'
 bindsym $mod+Print exec scrot -e 'mv $f ~/.screenshots/'
 
 focus_follows_mouse yes
+mouse_warping output
 
 # change focus
 bindsym $mod+h focus left
@@ -128,8 +129,8 @@ bindsym $mod+q focus child
 # Workspace names
 set $WS1 1 Édition
 set $WS2 2 Éxecution
-set $WS3 3 Référence
-set $WS4 4 Organisation
+set $WS3 3 Organisation
+set $WS4 4 Référence
 set $WS5 5 Divers 1
 set $WS6 6 Divers 2
 set $WS7 7 Contact
@@ -349,6 +350,7 @@ exec --no-startup-id numlockx on
 #exec --no-startup-id nm-applet
 #exec --no-startup-id compton -b
 exec --no-startup-id conky -c $HOME/.conky/status
+exec --no-startup-id unclutter
 
 # Autostart programs
 #exec --no-startup-id i3-msg 'workspace $WS8; exec firefox --new-window tweetdeck.twitter.com'
