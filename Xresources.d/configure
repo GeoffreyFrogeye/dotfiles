@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+wget https://raw.githubusercontent.com/solarized/xresources/master/Xresources.light -O solarized.light
+wget https://raw.githubusercontent.com/solarized/xresources/master/Xresources.dark -O solarized.dark
+mkdir -p $HOME/.local/share/fonts
+for i in Black Bold ExtraLight Light Medium Regular Semibold; do
+    wget http://raw.githubusercontent.com/powerline/fonts/master/SourceCodePro/Sauce%20Code%20Powerline%20$i.otf -O "$HOME/.local/share/fonts/Sauce Code Powerline $i.otf"
+done
+
