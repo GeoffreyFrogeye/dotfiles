@@ -53,9 +53,9 @@ bindsym $mod+m exec firefox --new-windows
 
 # Volume control
 #bindsym XF86AudioRaiseVolume exec amixer -q set Master 5+ unmute; exec $up_bar
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +10%; exec $up_bar
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%; exec $up_bar
 #bindsym XF86AudioLowerVolume exec amixer -q set Master 5- unmute; exec $up_bar
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -10%; exec $up_bar
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%; exec $up_bar
 bindsym XF86AudioMute exec amixer -q set Master toggle; exec $up_bar
 bindsym $mod+F11 exec xterm -e 'alsamixer'
 bindsym $mod+F12 exec xterm -e 'alsamixer'
