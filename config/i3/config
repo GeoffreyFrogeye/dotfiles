@@ -349,7 +349,7 @@ exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id numlockx on
 #exec --no-startup-id nm-applet
 #exec --no-startup-id compton -b
-exec --no-startup-id conky -c $HOME/.conky/status
+#exec --no-startup-id conky -c $HOME/.conky/status
 exec --no-startup-id unclutter
 
 # Autostart programs
