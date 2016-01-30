@@ -156,8 +156,12 @@ function locinst { # action package [other_info]*
 			locinst_pypi $dest $package $*
 			code=$?
 			;;
+		"debian")
+			$HOME/.scripts/locinst.py $package $*
+			code=$?
+			;;
 		*)
-			error "I don't know what to do. And don't beg for help with the commands."
+			#error "I don't know what to do. And don't beg for help with the commands."
 			return 1
 			;;
 	esac
@@ -182,6 +186,9 @@ function locinst { # action package [other_info]*
 		5)
 			error "Package already installed on system!"
 			;;
+		6)
+			error "Could not satisfy version requirements!"
+			;;
 		*)
 			error "Ugh... Something bad happened"
 	esac
@@ -191,4 +198,6 @@ function locinst { # action package [other_info]*
 
 }
 
-#
+if [ -n $1 ]; then
+    locinst $@
+fi
