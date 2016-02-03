@@ -10,7 +10,7 @@ export LOCINST_DB="$HOME/.config/locinst/"
 LOCINST_TMP=/tmp/locinst
 
 # Path set
-export PATH="$LOCINST_DIR/bin:$LOCINST_DIR/usr/bin:$PATH"
+export PATH="$LOCINST_DIR/bin:$LOCINST_DIR/usr/bin:$LOCINST_DIR/usr/games/:$PATH"
 export LD_LIBRARY_PATH="$LOCINST_DIR/lib:$LOCINST_DIR/usr/lib:$LD_LIBRARY_PATH"
 
 # Dir set
