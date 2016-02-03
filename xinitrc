@@ -52,6 +52,5 @@ fi
 tryDM i3
 tryDM xfce4
 tryDM mate
-tryDM gnome-classic
 tryDM gnome
 tryDM kde
