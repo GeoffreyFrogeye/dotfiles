@@ -6,12 +6,12 @@
 # Executed by startx (run your window manager from here)
 #
 
-[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+[ -f ~/.Xresources ] && xrdb -merge -I$HOME ~/.Xresources
 
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 found=0
-function tryDM {
+tryDM() {
 	if [ $found -eq 0 ]; then
 		parameters=''
 		case $1 in
