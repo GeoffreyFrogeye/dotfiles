@@ -44,15 +44,15 @@ function error { # str
 
 function locinst_arch { 
 
+    function getPageLink { # package, arch, repo
+        echo "https://www.archlinux.org/packages/$3/$2/$1/"
+    }
+
 	function getDlLink { # package, arch, repo
 		echo "$(getPageLink $1 $2 $3)download/"
 	}
 
 	function findPackage { # package
-
-		function getPageLink { # package, arch, repo
-			echo "https://www.archlinux.org/packages/$3/$2/$1/"
-		}
 
 		function testLink { # link
 			wget -q --max-redirect 0 "$1" -O /dev/null
