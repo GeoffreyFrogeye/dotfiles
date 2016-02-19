@@ -15,8 +15,8 @@ DEBIAN_MIRROR = 'http://debian.polytech-lille.fr/debian/'
 
 def globallyInstalled(name):
     try:
-        a = subprocess.check_output(['apt-cache', 'policy', 'name']).decode('utf8').strip().lower()
-        return 'Installed: (none)' not in [b.strip() for b in a.decode('utf8').split('\n')]
+        a = subprocess.check_output(['apt-cache', 'policy', name]).decode('utf8').strip().lower()
+        return 'installé\xa0: (aucun)' not in [b.strip() for b in a.split('\n')]
     except FileNotFoundError:
         return False
 
