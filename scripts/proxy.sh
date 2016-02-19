@@ -42,10 +42,10 @@ function proxy_off {
     unset https_proxy
     unset ftp_proxy
     unset rsync_proxy
-    export HTTP_PROXY
-    export HTTPS_PROXY
-    export FTP_PROXY
-    export RSYNC_PROXY
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset FTP_PROXY
+    unset RSYNC_PROXY
     echo -e "Proxy removed"
 }
 
