@@ -3,7 +3,8 @@
 wget https://raw.githubusercontent.com/solarized/xresources/master/Xresources.light -O solarized.light
 wget https://raw.githubusercontent.com/solarized/xresources/master/Xresources.dark -O solarized.dark
 mkdir -p $HOME/.local/share/fonts
-for i in Black Bold ExtraLight Light Medium Regular Semibold; do
-    wget http://raw.githubusercontent.com/powerline/fonts/master/SourceCodePro/Sauce%20Code%20Powerline%20$i.otf -O "$HOME/.local/share/fonts/Sauce Code Powerline $i.otf"
-done
+echo $(for i in "" "%20Bold" "%20Oblique" "%20Bold%20Oblique"; do
+    cd $HOME/.local/share/fonts
+    wget http://raw.githubusercontent.com/powerline/fonts/master/DejaVuSansMono/DejaVu%20Sans%20Mono$i%20for%20Powerline.ttf
+done)
 
