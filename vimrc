@@ -22,9 +22,16 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'scrooloose/syntastic'
 "Plugin 'terryma/vim-multiple-cursors'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'kien/ctrlp.vim'
+Plugin 'mbbill/undotree'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
+Plugin 'majutsushi/tagbar'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -160,6 +167,21 @@ let g:airline_section_a = airline#section#create(['mode'])
 let g:airline_section_b = airline#section#create(['branch', 'hunks'])
 let g:airline_section_z = airline#section#create(['%B', '@', '%l', ':', '%c'])
 
+""" NERDTREE-GIT-PLUGIN """
+
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+
 """ VIM SETTINGS """
 
 set encoding=utf-8
@@ -188,12 +210,13 @@ set noerrorbells
 set backspace=indent,eol,start
 
 set hidden
+set updatetime=250
 
 syntax enable
 
 set background=dark
 colorscheme solarized
-set t_Co=256
+
 
 filetype on
 filetype plugin on
