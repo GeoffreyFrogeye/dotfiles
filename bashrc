@@ -97,12 +97,16 @@ alias FUCK='fuck'
 
 # Functions
 function clean {
-	find ~/Documents/ -type d -name bower_components -or -name node_modules -print0 | while read file; do
+	find . -type d -name bower_components -or -name node_modules -print0 | while read file; do
         rm -rf "$file"
     done
-    find Documents/ -type f -name Makefile -print0 | while IFS= read -r -d '' file; do
+    find . -type f -name Makefile -print0 | while IFS= read -r -d '' file; do
         echo "--> $file"
         (cd "${file//Makefile}"; make clear; make clean)
+    done
+    find . -type d -name .git -print0 | while IFS= read -r -d '' dir; do
+        echo "--> $file"
+        (cd "$dir"; git gc)
     done
 }
 
