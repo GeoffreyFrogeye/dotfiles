@@ -23,7 +23,7 @@ trap 'echo -ne "\e[0m"' DEBUG
 
 # Vars
 export EDITOR=vim
-export BROWSER=/usr/bin/xdg-open
+export BROWSER=/usr/bin/firefox
 
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.gem/ruby/2.2.0/bin/"
 export LANG=fr_FR.utf8
