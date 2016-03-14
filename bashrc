@@ -1,10 +1,12 @@
 # Custom scripts
 
+
+
 #find ~/.scripts/ ~/.gscripts/ -type f -name "*.sh" | while read script; do
 	#source "$script"
 #done
-source ~/.scripts/index.sh
-source ~/.gscripts/index.sh
+[ -f ~/.scripts/index.sh ] && source ~/.scripts/index.sh
+[ -f ~/.gscripts/index.sh ] && source ~/.gscripts/index.sh
 
 # Prompt
 if [[ $USER == 'root' ]]; then
