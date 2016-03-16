@@ -32,6 +32,8 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
+"Plugin 'gilligan/vim-lldb'
+Plugin 'welle/targets.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -218,6 +220,9 @@ set background=dark
 set t_Co=256
 colorscheme solarized
 
+" From http://stackoverflow.com/a/5004785/2766106
+set list
+set listchars=tab:╾╌,trail:·,extends:↦,precedes:↤,nbsp:_
 
 filetype on
 filetype plugin on

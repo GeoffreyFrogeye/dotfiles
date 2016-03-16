@@ -107,7 +107,7 @@ function clean {
     done
     find . -type f -name Makefile -print0 | while IFS= read -r -d '' file; do
         echo "--> $file"
-        (cd "${file//Makefile}"; make clear; make clean)
+        (cd "${file//Makefile}"; make clean)
     done
     find . -type d -name .git -print0 | while IFS= read -r -d '' dir; do
         echo "--> $file"
