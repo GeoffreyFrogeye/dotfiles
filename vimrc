@@ -217,6 +217,7 @@ set updatetime=250
 syntax enable
 
 set background=dark
+set t_Co=256
 colorscheme solarized
 
 " From http://stackoverflow.com/a/5004785/2766106
