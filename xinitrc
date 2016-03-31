@@ -1,56 +1,16 @@
 #!/bin/sh
-
 #
 # ~/.xinitrc
 #
 # Executed by startx (run your window manager from here)
-#
 
-[ -f ~/.Xresources ] && xrdb -merge -I$HOME ~/.Xresources
-
-export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-
-found=0
-tryDM() {
-	if [ $found -eq 0 ]; then
-		parameters=''
-		case $1 in
-		    awesome           ) executable=awesome;;
-		    bspwm             ) executable=bspwm;;
-		    catwm             ) executable=catwm;;
-		    cinnamon          ) executable=cinnamon-session;;
-		    dwm               ) executable=dwm;;
-		    enlightenment     ) executable=enlightenment_start;;
-		    ede               ) executable=startede;;
-		    fluxbox           ) executable=startfluxbox;;
-		    gnome             ) executable=gnome-session;;
-		    gnome-classic     ) executable=gnome-session; parameters="--session=gnome-classic";;
-		    i3|i3wm           ) executable=i3;;
-		    icewm             ) executable=icewm-session;;
-		    jwm               ) executable=jwm;;
-		    kde               ) executable=startkde;;
-		    mate              ) executable=mate-session;;
-		    monster|monsterwm ) executable=monsterwm;;
-		    notion            ) executable=notion;;
-		    openbox           ) executable=openbox-session;;
-		    unity             ) executable=unity;;
-		    xfce|xfce4        ) executable=startxfce4;;
-		    xmonad            ) executable=xmonad;;
-		    *) executabke=$1;;
-		esac
-		path=$(which $executable 2> /dev/null)
-		if [ $? -eq 0 ]; then
-			found=1
-			exec $path $parameters
-		fi
-	fi
-}
-
-if [ ! -z $1 ]; then
-	tryDM $1
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/*; do
+    [ -x "$f" ] && . "$f"
+  done
+  unset f
 fi
-tryDM i3
-tryDM xfce4
-tryDM mate
-tryDM gnome
-tryDM kde
+
+[ -f /etc/xprofile ] && source /etc/xprofile
+[ -f ~/.xprofile ] && source ~/.xprofile
+
