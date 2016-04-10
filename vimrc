@@ -33,7 +33,8 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 "Plugin 'gilligan/vim-lldb'
-Plugin 'welle/targets.vim'
+Plugin 'wellle/targets.vim'
+Plugin 'Chiel92/vim-autoformat'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
