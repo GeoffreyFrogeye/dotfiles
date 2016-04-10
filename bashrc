@@ -36,6 +36,7 @@ export HISTSIZE=10000
 export HISTFILESIZE=${HISTSIZE}
 export HISTCONTROL=ignoreboth
 export JAVA_FONTS=/usr/share/fonts/TTF
+export ANDROID_HOME=/opt/android-sdk
 
 
 # Tweaks
@@ -122,3 +123,7 @@ function dafont {
 }
 
 alias nw="sudo systemctl restart NetworkManager"
+
+function beep {
+     play -n synth sine E5 sine A4 remix 1-2 fade 0.5 1.2 0.5 2> /dev/null
+}
