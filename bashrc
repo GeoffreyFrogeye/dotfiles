@@ -97,6 +97,7 @@ fi
 alias fuck='eval $(thefuck $(fc -ln -1))'
 alias FUCK='fuck'
 
+# Command not found
 [ -r /etc/profile.d/cnf.sh ] && . /etc/profile.d/cnf.sh
 
 # Functions
