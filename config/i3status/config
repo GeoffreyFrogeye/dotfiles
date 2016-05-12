@@ -8,6 +8,7 @@ order += "disk /home"
 order += "disk /"
 order += "path_exists VPN"
 order += "ethernet usb0"
+order += "wireless wlan1"
 order += "wireless wlan0"
 order += "ethernet eth0"
 order += "cpu_usage"
@@ -17,6 +18,11 @@ order += "volume master"
 order += "tztime local"
 
 wireless wlan0 {
+        format_up = " (%quality at %essid, %bitrate) %ip"
+        format_down = ""
+}
+
+wireless wlan1 {
         format_up = " (%quality at %essid, %bitrate) %ip"
         format_down = ""
 }
