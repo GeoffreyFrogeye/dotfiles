@@ -67,6 +67,7 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 20
 # Screenshots
 bindsym Print exec scrot -ue 'mv $f ~/.screenshots/'
 bindsym $mod+Print exec scrot -e 'mv $f ~/.screenshots/'
+bindsym Ctrl+Print exec sleep 1 && scrot -se 'mv $f ~/.screenshots/'
 
 focus_follows_mouse yes
 mouse_warping output
