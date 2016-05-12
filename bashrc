@@ -60,14 +60,19 @@ shopt -s histappend
 shopt -s hostcomplete
 shopt -s autocd
 
-alias ls='ls --group-directories-first --time-style=+"%d/%m/%Y %H:%M" --color=auto -F'
-alias ll='ls -l --group-directories-first --time-style=+"%d/%m/%Y %H:%M" --color=auto -F'
-alias la='ls -la --group-directories-first --time-style=+"%d/%m/%Y %H:%M" --color=auto -F'
+export LS_OPTIONS='--group-directories-first --time-style=+"%d/%m/%Y %H:%M" --color=auto --classify --human-readable'
+alias ls="ls $LS_OPTIONS"
+alias ll="ls -l $LS_OPTIONS"
+alias la="ls -la $LS_OPTIONS"
 alias al=sl
 alias grep='grep --color=tty -d skip'
-alias cp="cp -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
+alias mkdir='mkdir -v'
+alias cp="cp -i"
+alias mv="mv -iv"
+alias dd='dd status=progress'
+alias rm='rm -Iv --one-file-system'
+alias free='free -m'
+alias df='df -h'
 
 # Solarized theme for tty, the dark version.
 # Based on:
