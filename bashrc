@@ -40,8 +40,6 @@ export ANDROID_HOME=/opt/android-sdk
 
 
 # Tweaks
-set -o vi
-
 [[ $- != *i* ]] && return
 
 if [ -f /etc/bash_completion ]; then . /etc/bash_completion; fi
@@ -104,6 +102,7 @@ fi
 alias fuck='eval $(thefuck $(fc -ln -1))'
 alias FUCK='fuck'
 
+# Command not found
 [ -r /etc/profile.d/cnf.sh ] && . /etc/profile.d/cnf.sh
 
 # Functions
