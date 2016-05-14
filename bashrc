@@ -71,6 +71,7 @@ alias dd='dd status=progress'
 alias rm='rm -Iv --one-file-system'
 alias free='free -m'
 alias df='df -h'
+alias pacman='pacman --color auto'
 
 # Solarized theme for tty, the dark version.
 # Based on:
