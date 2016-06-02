@@ -19,7 +19,11 @@ fi
 	
 export USER=$(whoami)
 export HOSTNAME=$(cat /etc/hostname)
-PS1="\[\e[0;37m\][\[\e[0;${col}m\]\u\[\e[0;37m\]@\[\e[0;34m\]${HOSTNAME//geoffrey-/} \[\e[0;36m\]\W\[\e[0;37m\]]\$\[\e[1;97m\] "
+HOST=${HOSTNAME//geoffrey-/}
+PS1="\[\e]2;\u@${HOST} \w\a\]\[\e[0;37m\][\[\e[0;${col}m\]\u\[\e[0;37m\]@\[\e[0;34m\]${HOST} \[\e[0;36m\]\W\[\e[0;37m\]]\$\[\e[1;97m\] "
+PS2="> "
+PS3="+ "
+PS4="+ "
 trap 'echo -ne "\e[0m"' DEBUG
 
 
@@ -71,7 +75,7 @@ alias dd='dd status=progress'
 alias rm='rm -Iv --one-file-system'
 alias free='free -m'
 alias df='df -h'
-alias 49.3='sudo !!'
+alias 49.3='sudo'
 alias pacman='pacman --color auto'
 
 # Solarized theme for tty, the dark version.
@@ -109,7 +113,7 @@ alias FUCK='fuck'
 
 # Functions
 function clean {
-	find . -type d -name bower_components -or -name node_modules -print0 | while read file; do
+    find . -type d -name bower_components -or -name node_modules -print0 | while read file; do
         rm -rf "$file"
     done
     find . -type f -name Makefile -print0 | while IFS= read -r -d '' file; do
