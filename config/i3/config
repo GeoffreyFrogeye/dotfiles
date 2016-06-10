@@ -345,13 +345,14 @@ bindsym $mod+F5 exec --no-startup-id xautolock -enable
 
 # Autostart applications
 $background
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id gnome-keyring-daemon
-exec --no-startup-id numlockx on
-#exec --no-startup-id nm-applet
-#exec --no-startup-id compton -b
-#exec --no-startup-id conky -c $HOME/.conky/status
-exec --no-startup-id unclutter
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 # Password remembering
+exec --no-startup-id gnome-keyring-daemon # Password remembering
+exec --no-startup-id numlockx on # Activate Num lock
+#exec --no-startup-id nm-applet # Network manager tray icon
+#exec --no-startup-id compton -b # Compositing manager
+#exec --no-startup-id conky -c $HOME/.conky/status # Desktop widget
+exec --no-startup-id unclutter # Hide mouse cursor after some time
+exec --no-startup-id dunst # Notifications
 
 # Autostart programs
 #exec --no-startup-id i3-msg 'workspace $WS8; exec firefox --new-window tweetdeck.twitter.com'
