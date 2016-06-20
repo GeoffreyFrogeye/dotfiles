@@ -31,7 +31,7 @@ trap 'echo -ne "\e[0m"' DEBUG
 export PAGER=less
 export EDITOR=vim
 export VISUAL=vim
-export BROWSER=/usr/bin/firefox
+export BROWSER=/usr/bin/qutebrowser
 export TZ=/usr/share/zoneinfo/Europe/Paris
 
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.gem/ruby/2.2.0/bin/"
