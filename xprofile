@@ -6,7 +6,9 @@
 # sourced by your display manager
 #
 
-[ -f ~/.Xresources ] && xrdb -merge -I$HOME ~/.Xresources
+
+[ -f ~/.Xresources ] && xrdb ~/.Xresources
+setxkbmap fr oss
 
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
