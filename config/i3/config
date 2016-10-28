@@ -29,8 +29,8 @@ font pango:Sans 8
 floating_modifier $mod
 
 # kill focused window
-#bindsym $mod+F4 kill
-bindsym Mod1+F4 kill
+bindsym $mod+z kill
+#bindsym Mod1+F4 kill
 bindsym button2 kill
 
 # start dmenu (a program launcher)
