@@ -81,11 +81,11 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+## alternatively, you can use the cursor keys:
+#bindsym $mod+Left focus left
+#bindsym $mod+Down focus down
+#bindsym $mod+Up focus up
+#bindsym $mod+Right focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -93,11 +93,11 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+## alternatively, you can use the cursor keys:
+#bindsym $mod+Shift+Left move left
+#bindsym $mod+Shift+Down move down
+#bindsym $mod+Shift+Up move up
+#bindsym $mod+Shift+Right move right
 
 # workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
@@ -167,16 +167,28 @@ bindsym $mod+9 workspace $WS9
 bindsym $mod+0 workspace $WS10
 
 #navigate workspaces next / previous
-bindsym $mod+Ctrl+Left workspace prev_on_output
-bindsym $mod+Ctrl+Right workspace next_on_output
-bindsym $mod+Ctrl+Down workspace prev
-bindsym $mod+Ctrl+Up workspace next
+bindsym $mod+Ctrl+h workspace prev_on_output
+bindsym $mod+Ctrl+l workspace next_on_output
+bindsym $mod+Ctrl+j workspace prev
+bindsym $mod+Ctrl+k workspace next
+
+##navigate workspaces next / previous (arrow keys)
+#bindsym $mod+Ctrl+Left workspace prev_on_output
+#bindsym $mod+Ctrl+Right workspace next_on_output
+#bindsym $mod+Ctrl+Down workspace prev
+#bindsym $mod+Ctrl+Up workspace next
 
 # Move to workspace next / previous with focused container
-bindsym $mod+Ctrl+Shift+Left move container to workspace prev_on_output; workspace prev_on_output
-bindsym $mod+Ctrl+Shift+Right move container to workspace next_on_output; workspace next_on_output
-bindsym $mod+Ctrl+Shift+Down move container to workspace prev; workspace prev
-bindsym $mod+Ctrl+Shift+Up move container to workspace next; workspace next
+bindsym $mod+Ctrl+Shift+h move container to workspace prev_on_output; workspace prev_on_output
+bindsym $mod+Ctrl+Shift+l move container to workspace next_on_output; workspace next_on_output
+bindsym $mod+Ctrl+Shift+j move container to workspace prev; workspace prev
+bindsym $mod+Ctrl+Shift+k move container to workspace next; workspace next
+
+## Move to workspace next / previous with focused container (arrow keys)
+#bindsym $mod+Ctrl+Shift+Left move container to workspace prev_on_output; workspace prev_on_output
+#bindsym $mod+Ctrl+Shift+Right move container to workspace next_on_output; workspace next_on_output
+#bindsym $mod+Ctrl+Shift+Down move container to workspace prev; workspace prev
+#bindsym $mod+Ctrl+Shift+Up move container to workspace next; workspace next
 
 # move focused container to workspace
 bindsym $mod+ctrl+1 move container to workspace $ws1
@@ -202,11 +214,17 @@ bindsym $mod+shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+shift+0 move container to workspace $ws10; workspace $ws10
 
-# move workspaces to screen
-bindsym $mod+ctrl+shift+r move workspace to output right
-bindsym $mod+ctrl+shift+l move workspace to output left
-bindsym $mod+Ctrl+Shift+u move workspace to output above
-bindsym $mod+Ctrl+Shift+d move workspace to output below
+## move workspaces to screen
+#bindsym $mod+ctrl+shift+r move workspace to output right
+#bindsym $mod+ctrl+shift+l move workspace to output left
+#bindsym $mod+Ctrl+Shift+u move workspace to output above
+#bindsym $mod+Ctrl+Shift+d move workspace to output below
+
+# move workspaces to screen (arrow keys)
+bindsym $mod+ctrl+shift+Right move workspace to output right
+bindsym $mod+ctrl+shift+Left move workspace to output left
+bindsym $mod+Ctrl+Shift+Up move workspace to output above
+bindsym $mod+Ctrl+Shift+Down move workspace to output below
 
 # Open applications on specific workspaces
 assign [class="Thunderbird"] $WS7
@@ -268,11 +286,11 @@ mode "Resize" {
         bindsym i resize shrink height 10 px or 10 ppt
         bindsym l resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        ## same bindings, but for the arrow keys
+        #bindsym Left resize shrink width 10 px or 10 ppt
+        #bindsym Down resize grow height 10 px or 10 ppt
+        #bindsym Up resize shrink height 10 px or 10 ppt
+        #bindsym Right resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
