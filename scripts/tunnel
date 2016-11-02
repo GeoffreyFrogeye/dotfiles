@@ -19,7 +19,7 @@ try:
         user = None
         if len(s) == 2:
             user, proxy = s
-        args = ['proxytunnel', '-p', proxy, '-d', host + ':' + port]
+        args = ['proxytunnel', '-p', proxy, '-d', host + ':' + '443']
         if user:
             args += ['-P', user]
         call(args)
