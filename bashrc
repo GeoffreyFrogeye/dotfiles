@@ -19,7 +19,7 @@ fi
 	
 export USER=$(whoami)
 export HOSTNAME=$(cat /etc/hostname)
-HOST=${HOSTNAME//geoffrey-/}
+HOST=${HOSTNAME%%.*}
 PS1="\[\e]2;\u@${HOST} \w\a\]\[\e[0;37m\][\[\e[0;${col}m\]\u\[\e[0;37m\]@\[\e[0;34m\]${HOST} \[\e[0;36m\]\W\[\e[0;37m\]]\$\[\e[1;97m\] "
 PS2="> "
 PS3="+ "
