@@ -6,7 +6,7 @@ DEBLOC_ROOT=$HOME/.debloc/$ARCH
 
 if [ -z $DEBIAN_MIRROR ]; then
     DEBIAN_MIRROR=$(cat /etc/apt/sources.list | grep '^deb ' | grep main | grep -v security | grep -v updates | grep -v backports)
-    DEBIAN_MIRROR=$(echo $DEBIAN_MIRROR | head -1 | cut -d ' ' -f 2 | sed 's/\w\+:\/\///')
+    DEBIAN_MIRROR=$(echo $DEBIAN_MIRROR | head -1 | cut -d ' ' -f 2 | sed 's/\/$//')
 fi
 
 mkdir -p $DEBLOC_DB &> /dev/null
@@ -19,10 +19,10 @@ export QT_QPA_PLATFORM_PLUGIN_PATH="$DEBLOC_ROOT/usr/lib/x86_64-linux-gnu/qt5/pl
 
 # Tell if a package exists
 function _debloc-exists { # package
-    if [ -f $DEBIAN_DB ]; then
+    if [[ -n $DEBIAN_DB && -f $DEBIAN_DB ]]; then
         grep "^Package: $1\$" $DEBIAN_DB --quiet
     else
-        dpkg --status $1 &> /dev/null
+        LANG=C apt-cache show $1 &> /dev/null
     fi
     if [ $? == 0 ]; then
         return 1
@@ -51,7 +51,7 @@ function _debloc-filterVirtual { # package
 
 # Tell if a package is installed via debloc
 function _debloc-locallyInstalled { # package
-    if [ -e $DEBLOC_DB/$1 ]; then
+    if [ -f $DEBLOC_DB/$1 ]; then
         return 1
     else
         return 0
@@ -60,10 +60,18 @@ function _debloc-locallyInstalled { # package
 
 # Tell if a package is installed system-wide
 function _debloc-globallyInstalled { # package
-    dpkg --status $1 | grep '^Status:' | grep 'not-installed' --quiet
+    STATUS=$(mktemp)
+    LANG=C dpkg --status $1 &> $STATUS
     if [ $? != 0 ]; then
+        rm -f $STATUS > /dev/null
+        return 0
+    fi
+    cat $STATUS | grep '^Status:' | grep 'not-installed' --quiet
+    if [ $? != 0 ]; then
+        rm -f $STATUS > /dev/null
         return 1
     else
+        rm -f $STATUS > /dev/null
         return 0
     fi
 }
@@ -81,7 +89,12 @@ function _debloc-packageShow { # package
         done
         return 1
     else
-        dpkg --print-avail $pkg
+        LANG=C apt-cache show $pkg | while read line; do
+            if [ -z "$line" ]; then
+                return 0
+            fi
+            echo $line
+        done
         return 0
     fi
 }
@@ -145,10 +158,9 @@ function _debloc-installDeb { # path
 function _debloc-install { # package
     pkg=$1
 
-    echo "→ Downloading"
     url=${DEBIAN_MIRROR}/$(_debloc-packagePath $pkg)
+    echo "→ Downloading $url"
     DEB_FILE=$(mktemp) &> /dev/null
-    echo $url
     wget "$url" --quiet -O $DEB_FILE
     if [ $? != 0 ]; then
         echo "→ Failed!"

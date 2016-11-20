@@ -4,7 +4,7 @@
 
 function debloc-custom-cli {
     # Utils
-    debloc-install moreutils screen ncdu htop sl proxytunnel pass
+    debloc-install moreutils screen ncdu htop sl proxytunnel pass pv
 
     # Text editor
     debloc-install vim exuberant-ctags
