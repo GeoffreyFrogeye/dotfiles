@@ -4,8 +4,10 @@ ARCH=$(dpkg --print-architecture)
 DEBLOC_DB=$HOME/.config/debloc/$ARCH
 DEBLOC_ROOT=$HOME/.debloc/$ARCH
 
-# TODO Configurable
-DEBIAN_MIRROR=http://debian.polytech-lille.fr/debian
+if [ -z $DEBIAN_MIRROR ]; then
+    DEBIAN_MIRROR=$(cat /etc/apt/sources.list | grep '^deb ' | grep main | grep -v security | grep -v updates | grep -v backports)
+    DEBIAN_MIRROR=$(echo $DEBIAN_MIRROR | head -1 | cut -d ' ' -f 2 | sed 's/\w\+:\/\///')
+fi
 
 mkdir -p $DEBLOC_DB &> /dev/null
 mkdir -p $DEBLOC_ROOT &> /dev/null
@@ -17,7 +19,11 @@ export QT_QPA_PLATFORM_PLUGIN_PATH="$DEBLOC_ROOT/usr/lib/x86_64-linux-gnu/qt5/pl
 
 # Tell if a package exists
 function _debloc-exists { # package
-    LANG=C apt-cache show $1 &> /dev/null
+    if [ -f $DEBIAN_DB ]; then
+        grep "^Package: $1\$" $DEBIAN_DB --quiet
+    else
+        dpkg --status $1 &> /dev/null
+    fi
     if [ $? == 0 ]; then
         return 1
     else
@@ -29,12 +35,16 @@ function _debloc-exists { # package
 # If not a virtual package, return the input
 function _debloc-filterVirtual { # package
     pkg=$1
-    LANG=C apt-cache policy $1 | grep "Candidate" | grep "(none)" > /dev/null
-    if [ $? == 0 ]; then
-        # TODO This is not really accurate
-        LANG=C apt-cache showpkg $pkg | tail -1 | cut -d ' ' -f 1
-    else
+    if [[ -n $DEBIAN_DB && -f $DEBIAN_DB ]]; then
         echo $pkg
+    else
+        LANG=C apt-cache policy $1 | grep "Candidate" | grep "(none)" > /dev/null
+        if [ $? == 0 ]; then
+            # TODO This is not really accurate
+            LANG=C apt-cache showpkg $pkg | tail -1 | cut -d ' ' -f 1
+        else
+            echo $pkg
+        fi
     fi
     return 0
 }
@@ -50,19 +60,30 @@ function _debloc-locallyInstalled { # package
 
 # Tell if a package is installed system-wide
 function _debloc-globallyInstalled { # package
-    LANG=C apt-cache policy $1 | grep "Installed" | grep "(none)" > /dev/null
-    return $?
+    dpkg --status $1 | grep '^Status:' | grep 'not-installed' --quiet
+    if [ $? != 0 ]; then
+        return 1
+    else
+        return 0
+    fi
 }
 
 # Get informations about a package
 function _debloc-packageShow { # package
-    LANG=C apt-cache show $1 | while read line; do
-        if [ "$line" == '' ]; then
-            break
-        fi
-        echo "$line"
-    done
-    return 0
+    pkg=$1
+    if [[ -n $DEBIAN_DB && -f $DEBIAN_DB ]]; then
+        startline=$(grep "^Package: ${pkg}\$" $DEBIAN_DB --line-number | cut -d ':' -f 1)
+        sed -n $startline,$(expr $startline + 100)p $DEBIAN_DB | while read line; do
+            if [ -z "$line" ]; then
+                return 0
+            fi
+            echo $line
+        done
+        return 1
+    else
+        dpkg --print-avail $pkg
+        return 0
+    fi
 }
 
 # Get the path of a package
@@ -127,6 +148,7 @@ function _debloc-install { # package
     echo "→ Downloading"
     url=${DEBIAN_MIRROR}/$(_debloc-packagePath $pkg)
     DEB_FILE=$(mktemp) &> /dev/null
+    echo $url
     wget "$url" --quiet -O $DEB_FILE
     if [ $? != 0 ]; then
         echo "→ Failed!"
@@ -152,7 +174,7 @@ function _debloc-install { # package
 
 # Get the dependencies of a package
 function _debloc-packageDeps { # package
-    LANG=C apt-cache show $1 | grep '^Depends:' | sed 's/Depends: //' | sed 's/, /\n/g' | cut -d ' ' -f 1
+    _debloc-packageShow $1 | grep '^Depends:' | sed 's/Depends: //' | sed 's/, /\n/g' | cut -d ' ' -f 1
     return 0
 }
 
