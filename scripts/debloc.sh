@@ -72,13 +72,13 @@ function _debloc-globallyInstalled { # package
         rm -f $STATUS > /dev/null
         return 0
     fi
-    cat $STATUS | grep '^Status:' | grep 'not-installed' --quiet
+    cat $STATUS | grep '^Status:' | grep ' installed' --quiet
     if [ $? != 0 ]; then
         rm -f $STATUS > /dev/null
-        return 1
+        return 0
     else
         rm -f $STATUS > /dev/null
-        return 0
+        return 1
     fi
 }
 
