@@ -10,7 +10,7 @@ DEBIAN_MIRROR=http://debian.polytech-lille.fr/debian
 mkdir -p $DEBLOC_DB &> /dev/null
 mkdir -p $DEBLOC_ROOT &> /dev/null
 
-export PATH="$DEBLOC_ROOT/usr/bin:$DEBLOC_ROOT/usr/games/:$PATH"
+export PATH="$DEBLOC_ROOT/usr/bin:$DEBLOC_ROOT/usr/games/:$DEBLOC_ROOT/usr/lib/git-core:$PATH"
 export LD_LIBRARY_PATH="$DEBLOC_ROOT/lib:$LD_LIBRARY_PATH"
 export PYTHONPATH="$DEBLOC_ROOT/usr/lib/python3:$PYTHONPATH"
 export QT_QPA_PLATFORM_PLUGIN_PATH="$DEBLOC_ROOT/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms"
