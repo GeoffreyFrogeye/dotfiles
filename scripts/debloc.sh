@@ -5,7 +5,6 @@ DEBLOC_ROOT=$HOME/.debloc
 
 # TODO Configurable
 DEBIAN_MIRROR=http://debian.polytech-lille.fr/debian
-DEBIAN_MIRROR=http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu
 
 mkdir -p $DEBLOC_DB &> /dev/null
 mkdir -p $DEBLOC_ROOT &> /dev/null
