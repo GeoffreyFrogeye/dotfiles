@@ -1,0 +1,9 @@
+term xterm-256color
+hardstatus off
+hardstatus alwayslastline
+hardstatus alwayslastline '%{= G}[ %{G}%H %{g}][%= %{= w}%?%-Lw%?%{= R}%n*%f %t%?%{= R}(%u)%?%{= w}%+Lw%?%= %{= g}][ %{y}Load: %l %{g}][%{B}%Y-%m-%d %{W}%c:%s %{g}]'
+startup_message off
+termcapinfo xterm* ti@:te@
+vbell off
+altscreen on
+windowlist string "%4n %h%=%f"
