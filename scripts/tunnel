@@ -5,7 +5,7 @@ port="$2"
 if [ -z "$http_proxy" ]; then
     nc "$host" "$port"
 else
-    proxy=$(echo http_proxy | sed 's/^https\?:\/\///' | sed 's/\/$//')
+    proxy=$(echo "$http_proxy" | sed 's/^https\?:\/\///' | sed 's/\/$//')
     port=443 # Most won't want this
     echo "$proxy" | grep '@'
     if [ $? == 0 ]; then
