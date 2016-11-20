@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [ ! -f /etc/apt/sources.list ]; then
+    # Not a debian system
+    return 0
+fi
+
+
 ARCH=$(dpkg --print-architecture)
 DEBLOC_DB=$HOME/.config/debloc/$ARCH
 DEBLOC_ROOT=$HOME/.debloc/$ARCH
