@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-DEBLOC_DB=$HOME/.config/debloc
-DEBLOC_ROOT=$HOME/.debloc
+ARCH=$(dpkg --print-architecture)
+DEBLOC_DB=$HOME/.config/debloc/$ARCH
+DEBLOC_ROOT=$HOME/.debloc/$ARCH
 
 # TODO Configurable
 DEBIAN_MIRROR=http://debian.polytech-lille.fr/debian
