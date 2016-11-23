@@ -1,7 +1,8 @@
 #!/bin/bash
 i3-msg workspace Lock
-imgpath=$HOME/.cache/blurlock.png
-scrot $imgpath
-convert $imgpath -blur 0x5 $imgpath
-i3lock -f -i $imgpath
+imgpath=$(mktemp).png
+scrot "$imgpath"
+convert "$imgpath" -blur 0x5 "$imgpath"
+i3lock -f -i "$imgpath"
 i3-msg workspace back_and_forth
+rm "$imgpath"

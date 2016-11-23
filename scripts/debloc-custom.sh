@@ -10,14 +10,15 @@ function debloc-custom-cli {
     debloc-install vim exuberant-ctags
 
     # Dev
-    debloc-install build-essential cmake clang
+    debloc-install build-essential cmake clang llvm git
 }
 
 function debloc-custom {
     debloc-custom-cli
 
     # Desktop manager
-    debloc-install i3 dmenu dunst unclutter xautolock feh numlockx scrot
+    debloc-install i3 i3lock dmenu dunst unclutter xautolock feh numlockx scrot imagemagick suckless-tools
+    ln -s $DEBLOC_ROOT/bin/dmenu{.xft,}
 
     # qutebrowser
     debloc-install python3-lxml python-tox python3-pyqt5 python3-pyqt5.qtwebkit python3-sip python3-jinja2 python3-pygments python3-yaml

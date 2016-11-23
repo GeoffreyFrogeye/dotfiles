@@ -3,6 +3,7 @@
 ARCH=$(dpkg --print-architecture)
 DEBLOC_DB=$HOME/.config/debloc/$ARCH
 DEBLOC_ROOT=$HOME/.debloc/$ARCH
+DEBLOC_LD=$DEBLOC_ROOT/ld
 
 if [ -z $DEBIAN_MIRROR ]; then
     DEBIAN_MIRROR=$(cat /etc/apt/sources.list | grep '^deb ' | grep main | grep -v security | grep -v updates | grep -v backports)
@@ -13,8 +14,8 @@ mkdir -p $DEBLOC_DB &> /dev/null
 mkdir -p $DEBLOC_ROOT &> /dev/null
 
 export PATH="$DEBLOC_ROOT/usr/bin:$DEBLOC_ROOT/usr/games/:$DEBLOC_ROOT/usr/lib/git-core:$PATH"
-export LD_LIBRARY_PATH="$DEBLOC_ROOT/lib:$LD_LIBRARY_PATH"
-export PYTHONPATH="$DEBLOC_ROOT/usr/lib/python3:$PYTHONPATH"
+export LD_LIBRARY_PATH="$DEBLOC_LD:$LD_LIBRARY_PATH"
+export PYTHONPATH="$DEBLOC_ROOT/usr/lib/python3/dist-packages:$PYTHONPATH"
 export QT_QPA_PLATFORM_PLUGIN_PATH="$DEBLOC_ROOT/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms"
 
 # Tell if a package exists
@@ -61,7 +62,7 @@ function _debloc-locallyInstalled { # package
 # Tell if a package is installed system-wide
 function _debloc-globallyInstalled { # package
     STATUS=$(mktemp)
-    LANG=C dpkg --status $1 &> $STATUS
+    LANG=C dpkg --list $1 &> $STATUS
     if [ $? != 0 ]; then
         rm -f $STATUS > /dev/null
         return 0
@@ -113,16 +114,14 @@ function _debloc-packageMd5sum { # package
 
 # Update symbolics links in $DEBLOC_ROOT/lib
 function _debloc-ldconfig {
-    mkdir -p $DEBLOC_ROOT/lib &> /dev/null
-    rm -f $DEBLOC_ROOT/lib/* &> /dev/null
-    if [ -e $DEBLOC_ROOT/usr/lib ]; then
-        find $DEBLOC_ROOT/usr/lib -type f -name "*.so*" | while read lib; do
-            ln --symbolic --force "$lib" "$DEBLOC_ROOT/lib/$(basename $lib)"
-        done
-        find $DEBLOC_ROOT/usr/lib -type l -name "*.so*" | while read link; do
-            yes | cp --force --no-dereference --preserve=links "$link" "$DEBLOC_ROOT/lib/" &> /dev/null
-        done
-    fi
+    mkdir -p $DEBLOC_LD &> /dev/null
+    rm -f $DEBLOC_LD &> /dev/null
+    find $DEBLOC_ROOT{/usr,}/lib -type f -name "*.so*" | while read lib; do
+        ln --symbolic --force "$lib" "$DEBLOC_LD/$(basename $lib)"
+    done &> /dev/null
+    find $DEBLOC_ROOT{/usr,}/lib -type l -name "*.so*" | while read link; do
+        yes | cp --force --no-dereference --preserve=links "$link" "$DEBLOC_LD" &> /dev/null
+    done &> /dev/null
 
 }
 
@@ -137,14 +136,14 @@ function _debloc-installDeb { # path
         tar xf $TAR_FILE -C $DEBLOC_ROOT
 
         # _debloc-ldconfig
-        mkdir -p $DEBLOC_ROOT/lib &> /dev/null
-        tar tf $TAR_FILE | grep '^./usr/lib/' | grep '\.so' | while read file; do
+        mkdir -p $DEBLOC_LD &> /dev/null
+        tar tf $TAR_FILE | grep '^.\(/usr\)\?/lib/' | grep '\.so' | while read file; do
             lib=$(readlink -f $DEBLOC_ROOT/$file)
             if [ -f $lib ]; then
-                ln --symbolic --force "$lib" "$DEBLOC_ROOT/lib/$(basename $file)"
+                ln --symbolic --force "$lib" "$DEBLOC_LD/$(basename $file)"
             fi
             if [ -h $lib ]; then
-                yes | cp --force --no-dereference --preserve=links "$(basename $link)" "$DEBLOC_ROOT/lib/" &> /dev/null
+                yes | cp --force --no-dereference --preserve=links "$(basename $link)" "$DEBLOC_LD/" &> /dev/null
             fi
         done
     fi

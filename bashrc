@@ -41,6 +41,9 @@ export HISTCONTROL=ignoreboth
 export JAVA_FONTS=/usr/share/fonts/TTF
 export ANDROID_HOME=/opt/android-sdk
 
+if [ -z $XDG_CONFIG_HOME ]; then
+    export XDG_CONFIG_HOME=$HOME/.config
+fi
 
 # Tweaks
 [[ $- != *i* ]] && return
