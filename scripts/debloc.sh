@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [ ! -f /etc/apt/sources.list ]; then
+    # Not a debian system
+    return 0
+fi
+
+
 ARCH=$(dpkg --print-architecture)
 DEBLOC_DB=$HOME/.config/debloc/$ARCH
 DEBLOC_ROOT=$HOME/.debloc/$ARCH
@@ -67,13 +73,13 @@ function _debloc-globallyInstalled { # package
         rm -f $STATUS > /dev/null
         return 0
     fi
-    cat $STATUS | grep '^Status:' | grep 'not-installed' --quiet
+    cat $STATUS | grep '^Status:' | grep ' installed' --quiet
     if [ $? != 0 ]; then
         rm -f $STATUS > /dev/null
-        return 1
+        return 0
     else
         rm -f $STATUS > /dev/null
-        return 0
+        return 1
     fi
 }
 
