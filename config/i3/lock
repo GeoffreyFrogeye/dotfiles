@@ -1,6 +1,12 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 dm-tool lock
 if [ $? -ne 0 ]; then
-	$HOME/.config/i3/blurlock
+    revert() {
+        xset dpms 0 0 0
+    }
+    trap revert SIGHUP SIGINT SIGTERM
+    xset dpms 5 5 5
+    i3lock --nofork --color 648901 --ignore-empty-password
+    revert
 fi

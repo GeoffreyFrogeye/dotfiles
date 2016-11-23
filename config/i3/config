@@ -299,7 +299,7 @@ mode "Resize" {
 
 bindsym $mod+r mode "Resize"
 
-set $background exec --no-startup-id feh --bg-scale $HOME/.config/i3/bg.jpg
+set $background exec --no-startup-id feh --bg-fill $HOME/.config/i3/bg.jpg
 bindsym $mod+Shift+a $background
 set $mode_screen_select [V] VGA1 [H] HDMI1
 mode "$mode_screen_select" {
