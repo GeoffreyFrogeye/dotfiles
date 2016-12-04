@@ -1,0 +1,8 @@
+[user]
+	name = Geoffrey Frogeye
+	email = geoffrey@frogeye.fr
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+[push]
+	default = matching
