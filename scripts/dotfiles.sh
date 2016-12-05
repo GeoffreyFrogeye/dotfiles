@@ -122,7 +122,7 @@ function _dotfiles-install-dir { # dir
                     echo "[ERROR] $absSource already exists, but is not a symbolic link"
                 fi
             else
-                cmd="ln --no-dereference --symbolic $relTarget $absSource"
+                cmd="ln --symbolic --no-dereference $relTarget $absSource"
                 if [ $DRY_RUN ]; then
                     echo $cmd
                 else
@@ -155,11 +155,49 @@ function _dotfiles-install-dir { # dir
 
 # Script functions
 
+function dotfiles-link { # file
+    absSource="$(realpath $1 2> /dev/null)"
+    if [[ $? != 0 || ! -e "$absSource" ]]; then
+        echo "[ERROR] $1: no such file or directory"
+        return 1
+    fi
+    relSource="$(relativePath $DOTHOME $absSource)"
+
+    absTarget="$DOTREPO/$relSource"
+    relTarget="$(relativePath "$DOTHOME/$dir" "$absTarget")"
+
+    if [ -f "$absTarget" ]; then
+        echo "[ERROR/UNIMPLEMENTED] $relSource is already linked to ... something"
+        return 2
+    fi
+
+    if [ -f "$absSource" ]; then
+        if [ -d "$(dirname "$absTarget")" ]; then
+            cmd="mv $absSource $absTarget"
+            cmd2="ln --symbolic --no-dereference $relTarget $absSource"
+            if [ $DRY_RUN ]; then
+                echo $cmd
+                echo $cmd2
+            else
+                $cmd
+                $cmd2
+            fi
+
+        else
+            echo "[UNIMPLEMENTED] Linking a file in a directory that don't already exists"
+        fi
+    else
+        echo "[UNIMPLEMENTED] Linking things other than a file"
+        return 12
+    fi
+
+}
+
 function dotfiles-install {
     _dotfiles-install-dir /
 }
 
-# TODO dotfiles-{link,unlink,clean,uninstall}
+# TODO dotfiles-{link,unlink,clean,uninstall}, better handling of DRY_RUN (use functions probably), clarify source/target thingy
 # Link and Unlink should have a clever behavior regarding
 # recusive folders
 # Ex : linking config/i3 should make config recursible
