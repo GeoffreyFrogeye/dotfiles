@@ -344,7 +344,7 @@ mode "$mode_screen_HDMI1" {
 bar {
     #i3bar_command ~/.config/lemonbar/i3_lemonbar.sh
 	mode hide
-	status_command ~/.config/i3status/status.sh
+    status_command i3status
 #	wheel_up_cmd nop
 #	wheel_down_cmd nop
 	font pango:DejaVu Sans Mono 9
