@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+# Installs Debian packages on a Debian system
+# with no root access, in the user home
+# (sourceable)
+
 if [ ! -f /etc/apt/sources.list ]; then
-    # Not a debian system
+    # Not a Debian system
     return 0
 fi
 
