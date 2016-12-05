@@ -157,6 +157,12 @@ function install-preferences {
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
 
+    # YouCompleteMe (vim plugin)
+    if [ $DEBIAN ]; then
+        inst build-essential cmake python-dev python3-dev
+    fi
+    $HOME/.vim/bundle/YouCompleteMe/install.sh --clang-completer --tern-completer
+
     # Dev
     if [ $DEBIAN ]; then
         inst build-essential

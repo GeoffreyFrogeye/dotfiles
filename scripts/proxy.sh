@@ -40,4 +40,5 @@ function proxy_off {
     unset rsync_proxy
     echo -e "Proxy removed"
 }
+alias po=proxy_off
 
