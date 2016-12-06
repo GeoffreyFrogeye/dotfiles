@@ -3,7 +3,7 @@
 # Setups an Arch Linux system the way I like it
 # (sourceable, requires sudo)
 
-if [[ "$(which pacman) &> /dev/null" == 1 ]]; then
+if which pacman &> /dev/null; then
     # Not an Arch system
     return 0
 fi
@@ -25,10 +25,10 @@ function install-arch {
     }
 
     # Don't ask for things that are already there
-    if [[ "$(which yaourt) &> /dev/null" ]]; then
+    if which yaourt &> /dev/null; then
         local YAOURT=1
     fi
-    if [[ "$(which bauerbill) &> /dev/null" ]]; then
+    if which bauerbill &> /dev/null; then
         local BAUERBILL=1
     fi
 
@@ -70,16 +70,18 @@ function install-arch {
     # SYSTEM
     inst wget
 
-    if [[ $YAOURT && $(pacman -Q yaourt) == 1 ]]; then
+    pacman -Q yaourt &> /dev/null
+    if [[ $YAOURT && $? == 1 ]]; then
         installPKGBUILD "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=package-query"
         installPKGBUILD "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yaourt"
     fi
 
-    if [ $(pacman -Q pamac) == 0 ]; then
+    if pacman -Q pamac ; then
         sudo pacman -Rsc pamac
     fi
 
-    if [[ $BAUERBILL && $(pacman -Q bauerbill) == 1 ]]; then
+    pacman -Q bauerbill &> /dev/null
+    if [[ $BAUERBILL && $? == 1 ]]; then
         sudo pacman -Sy manjaro-{hotfixes,keyring,release,system} --noconfirm
 
         gpg --recv-keys 1D1F0DC78F173680

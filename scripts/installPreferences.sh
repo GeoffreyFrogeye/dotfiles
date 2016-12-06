@@ -18,7 +18,7 @@ function install-preferences {
     }
 
     # Don't ask for things that are already there
-    if [[ "$(which i3) &> /dev/null" ]]; then
+    if which i3 &> /dev/null; then
         local GUI=1
     fi
 
@@ -38,7 +38,7 @@ function install-preferences {
     # TODO Verify if the package exists before installing it
 
     # System detection
-    if [[ "$(which pacman) &> /dev/null" ]]; then
+    if which pacman &> /dev/null; then
         ARCH=1
         if [ $ADMIN ]; then
             sudo pacman -Sy
@@ -81,7 +81,7 @@ function install-preferences {
             return 42
         fi
 
-    elif [[ "$(which dpkg) &> /dev/null" ]]; then
+    elif which dpkg &> /dev/null; then
         DEBIAN=1
         if [ $ADMIN ]; then
             apt-get update
