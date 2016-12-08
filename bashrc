@@ -79,6 +79,7 @@ alias free='free -m'
 alias df='df -h'
 alias 49.3='sudo'
 alias pacman='pacman --color auto'
+alias x='startx; logout'
 
 # Solarized theme for tty, the dark version.
 # Based on:
