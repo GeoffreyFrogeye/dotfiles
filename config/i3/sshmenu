@@ -1,0 +1,2 @@
+#!/bin/sh
+xterm -e "ssh $(cat ~/.ssh/config | grep '^Host ' | cut -d ' ' -f 2 | grep -v '*' | sort | $HOME/.config/i3/dmenu_cmd -p 'SSH to ')"

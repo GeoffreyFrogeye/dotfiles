@@ -37,8 +37,8 @@ bindsym button2 kill
 bindsym $mod+F2 exec --no-startup-id ~/.config/i3/dmenu_run
 bindsym Mod1+F2 exec --no-startup-id ~/.config/i3/dmenu_run
 
-# Password menu
 bindsym $mod+c exec --no-startup-id ~/.config/i3/passmenu
+bindsym $mod+asterisk exec --no-startup-id ~/.config/i3/sshmenu
 
 # start program launcher
 bindsym $mod+d exec --no-startup-id ~/.config/i3/dmenu_run
