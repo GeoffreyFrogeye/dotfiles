@@ -1,4 +1,5 @@
 source ~/.scripts/proxy.sh
+source ~/.scripts/machines.sh
 source ~/.scripts/debloc.sh
 source ~/.scripts/dotfiles.sh
 source ~/.scripts/installPreferences.sh
