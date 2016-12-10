@@ -16,8 +16,8 @@ DEBLOC_ROOT=$HOME/.debloc/$ARCH
 DEBLOC_LD=$DEBLOC_ROOT/ld
 
 if [ -z $DEBIAN_MIRROR ]; then
-    DEBIAN_MIRROR=$(cat /etc/apt/sources.list | grep '^deb ' | grep main | grep -v security | grep -v updates | grep -v backports)
-    DEBIAN_MIRROR=$(echo $DEBIAN_MIRROR | head -1 | cut -d ' ' -f 2 | sed 's/\/$//')
+    DEBIAN_MIRROR="$(cat /etc/apt/sources.list | grep '^deb ' | grep main | grep -v backports)"
+    DEBIAN_MIRROR="$(echo -e "$DEBIAN_MIRROR" | cut -d ' ' -f 2 | sed 's/\/$//')"
 fi
 
 mkdir -p $DEBLOC_DB &> /dev/null
@@ -167,12 +167,22 @@ function _debloc-installDeb { # path
 function _debloc-install { # package
     pkg=$1
 
-    url=${DEBIAN_MIRROR}/$(_debloc-packagePath $pkg)
-    echo "→ Downloading $url"
     DEB_FILE=$(mktemp) &> /dev/null
-    wget "$url" --quiet -O $DEB_FILE
-    if [ $? != 0 ]; then
+    path=$(_debloc-packagePath $pkg)
+    echo -e "${DEBIAN_MIRROR}" | while read mirror; do
+        if [ -z $mirror ]; then
+            continue
+        fi
+        url=${mirror}/${path}
+        echo "→ Downloading $url"
+        wget "$url" --quiet -O $DEB_FILE
+        if [ $? == 0 ]; then
+            break
+        fi
+    done
+    if [ ! -s $DEB_FILE ]; then
         echo "→ Failed!"
+        rm $DEBLOC_DB/$pkg &> /dev/null
         return 4
     fi
 
@@ -182,6 +192,7 @@ function _debloc-install { # package
     if [ "$theo" != "$real" ]; then
         rm -f $DEB_FILE &> /dev/null
         echo "→ Failed!"
+        rm $DEBLOC_DB/$pkg &> /dev/null
         return 5
     fi
 
@@ -203,6 +214,7 @@ function _debloc-packageDeps { # package
 function _debloc-installDeps { # package
     pkg=$1
     echo "Installing $pkg"
+    touch $DEBLOC_DB/$pkg # To prevent cyclic deps
     _debloc-packageDeps $pkg | while read dep; do
         dep=$(_debloc-filterVirtual $dep)
         _debloc-locallyInstalled $dep
