@@ -174,6 +174,14 @@ function machines-sign {
     done
 }
 
+function machines-list {
+    _machines-apiSigned machine
+}
+
+function machines-listNetwork {
+    _machines-apiSigned network
+}
+
 function _machines-postFile { # filename
     cat $1 | while read line; do
         parameter=$(echo $line | cut -d '=' -f 1)
